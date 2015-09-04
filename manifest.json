@@ -1,0 +1,17 @@
+{
+  "name": "CaptShare",
+  "version": "0.14",
+  "manifest_version": 2,
+  "icons": {
+    "16": "CaptShare.png",
+    "128": "CaptShare.png"
+  },
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "permissions": [
+    "desktopCapture"
+  ]
+}
