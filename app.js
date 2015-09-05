@@ -17,7 +17,9 @@ function toggle() {
             local_stream.stop();
         local_stream = null;
 
-        document.querySelector('button').innerHTML = "Enable Capture";
+        document.getElementById('btnCapture').innerHTML = "Enable Capture";
+        document.getElementById('btnScreenshot').style.display = 'none';
+        document.body.removeChild(document.querySelector('video'));
         console.log('Desktop sharing stopped...');
     }
 }
@@ -28,7 +30,7 @@ function onAccessApproved(desktop_id) {
         return;
     }
     desktop_sharing = true;
-    document.querySelector('button').innerHTML = "Disable Capture";
+    document.getElementById('btnCapture').innerHTML = "Disable Capture";
     console.log("Desktop sharing started.. desktop_id:" + desktop_id);
 
     navigator.webkitGetUserMedia({
@@ -47,7 +49,15 @@ function onAccessApproved(desktop_id) {
 
     function gotStream(stream) {
         local_stream = stream;
-        document.querySelector('video').src = URL.createObjectURL(stream);
+        console.log("Received local stream");
+        var video = document.createElement('video');
+        video.addEventListener('loadedmetadata',function(){
+            document.getElementById('btnScreenshot').style.display = 'block';
+        },false);
+        video.src = URL.createObjectURL(stream);
+        video.play();
+        document.body.appendChild(video);
+
         stream.onended = function() {
             if (desktop_sharing) {
                 toggle();
@@ -60,9 +70,27 @@ function onAccessApproved(desktop_id) {
     }
 }
 
+function takeScreenshot() {
+    var canvas = document.createElement('canvas');
+    var vid = document.querySelector('video');
+    console.log(vid);
+    canvas.width = vid.videoWidth;
+    canvas.height = vid.videoHeight;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(vid, 0, 0);
+    var url = canvas.toDataURL();
+    console.log(url);
+    // will open the captured image in a new tab
+    window.open(url);
+}
+
 /**
  * Click handler to init the desktop capture grab
  */
-document.querySelector('button').addEventListener('click', function(e) {
+document.getElementById('btnCapture').addEventListener('click', function(e) {
     toggle();
+});
+
+document.getElementById('btnScreenshot').addEventListener('click', function(e) {
+    takeScreenshot();
 });
