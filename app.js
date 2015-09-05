@@ -7,15 +7,19 @@
  */
 var desktop_sharing = false;
 var local_stream = null;
+var local_stream_track = null;
 function toggle() {
     if (!desktop_sharing) {
         chrome.desktopCapture.chooseDesktopMedia(["screen", "window"], onAccessApproved);
     } else {
         desktop_sharing = false;
 
-        if (local_stream)
-            local_stream.stop();
+        if (local_stream) {
+          local_stream_track.stop();
+        }
+        
         local_stream = null;
+        local_stream_track = null;
 
         document.getElementById('btnCapture').innerHTML = "Enable Capture";
         document.getElementById('btnScreenshot').style.display = 'none';
@@ -49,6 +53,7 @@ function onAccessApproved(desktop_id) {
 
     function gotStream(stream) {
         local_stream = stream;
+        local_stream_track = stream.getTracks()[0];
         console.log("Received local stream");
         var video = document.createElement('video');
         video.addEventListener('loadedmetadata',function(){
@@ -82,6 +87,14 @@ function takeScreenshot() {
     console.log(url);
     // will open the captured image in a new tab
     window.open(url);
+    
+    var a = document.createElement('a');
+    var d = new Date();
+    a.download = 'CaptShare_' + Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDay());
+    a.href = url;
+    a.textContent = 'Click here to download!';
+    a.dataset.downloadurl = ['jpg', a.download, a.href].join(':');
+    document.body.appendChild(a);
 }
 
 /**
