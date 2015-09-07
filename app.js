@@ -42,11 +42,7 @@ function onAccessApproved(desktop_id) {
         video: {
             mandatory: {
                 chromeMediaSource: 'desktop',
-                chromeMediaSourceId: desktop_id,
-                minWidth: 1280,
-                maxWidth: 1280,
-                minHeight: 720,
-                maxHeight: 720
+                chromeMediaSourceId: desktop_id
             }
         }
     }, gotStream, getUserMediaError);
@@ -83,9 +79,19 @@ function takeScreenshot() {
     canvas.height = vid.videoHeight;
     var ctx = canvas.getContext("2d");
     ctx.drawImage(vid, 0, 0);
+    
+    //add watermark
+    var watermark = document.getElementById("watermark");
+    //changing alpha setting just for the watermark
+    ctx.globalAlpha = 0.5;
+    ctx.drawImage(watermark, canvas.width - 70, canvas.height - 70, 60, 60);
+    ctx.globalAlpha = 1.0;
+    
+    //generating image url
     var url = canvas.toDataURL();
     console.log(url);
-    // will open the captured image in a new tab
+    
+    //open the image in a new tab
     window.open(url);
     
     var a = document.createElement('a');
