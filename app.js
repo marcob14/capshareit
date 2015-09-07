@@ -8,6 +8,7 @@
 var desktop_sharing = false;
 var local_stream = null;
 var local_stream_track = null;
+
 function toggle() {
     if (!desktop_sharing) {
         chrome.desktopCapture.chooseDesktopMedia(["screen", "window"], onAccessApproved);
@@ -38,13 +39,15 @@ function onAccessApproved(desktop_id) {
     console.log("Desktop sharing started.. desktop_id:" + desktop_id);
 
     navigator.webkitGetUserMedia({
-        audio: false,
-        video: {
-            mandatory: {
-                chromeMediaSource: 'desktop',
-                chromeMediaSourceId: desktop_id
-            }
+      audio: false,
+      video: {
+        mandatory: {
+            chromeMediaSource: 'desktop',
+            chromeMediaSourceId: desktop_id,
+            maxWidth: 4000,
+            maxHeight:4000 //setting max width & height for better image quality
         }
+      }
     }, gotStream, getUserMediaError);
 
     function gotStream(stream) {
