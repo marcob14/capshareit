@@ -3,12 +3,12 @@
   "version": "0.14",
   "manifest_version": 2,
   "icons": {
-    "16": "CaptShare.png",
-    "128": "CaptShare.png"
+    "16": "images/CaptShare.png",
+    "128": "images/CaptShare.png"
   },
   "app": {
     "background": {
-      "scripts": ["background.js", "shortcutsHandler.js"]
+      "scripts": ["js/background.js", "js/shortcutsHandler.js"]
     }
   },
   "commands": {
