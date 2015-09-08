@@ -29,6 +29,8 @@ chrome.app.runtime.onLaunched.addListener(function() {
         
         // can load a transparent window - load the js needed - and close once done?..
         // this can also solve the desktopCapture window to be shown on top
+        
+        //when background is being inactive, shortcut commands are not working
         break;
       default:
         return;
