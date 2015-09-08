@@ -8,8 +8,7 @@
   },
   "app": {
     "background": {
-      "scripts": ["background.js", "shortcutsHandler.js"],
-      "persistent": true
+      "scripts": ["background.js", "shortcutsHandler.js"]
     }
   },
   "commands": {
