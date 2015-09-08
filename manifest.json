@@ -8,7 +8,18 @@
   },
   "app": {
     "background": {
-      "scripts": ["background.js"]
+      "scripts": ["background.js", "shortcutsHandler.js"],
+      "persistent": true
+    }
+  },
+  "commands": {
+    "capture": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+1",
+        "mac": "Command+Shift+1"
+      },
+      "description": "Capture Screen",
+      "global": true
     }
   },
   "permissions": [
