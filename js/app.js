@@ -96,6 +96,8 @@ function takeScreenshot() {
     
     //open the image in a new tab
     window.open(url);
+
+    uploadImage(url);
     
     var a = document.createElement('a');
     var d = new Date();
@@ -105,6 +107,37 @@ function takeScreenshot() {
     a.dataset.downloadurl = ['jpg', a.download, a.href].join(':');
     document.body.appendChild(a);
 }
+
+function uploadImage(img) {
+    //removing the first part of the DataURL "data:image/png;base64,"
+    img = img.split(',')[1];
+    
+    var formData = new FormData();
+    formData.append('image', img);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://api.imgur.com/3/image');
+    xhr.setRequestHeader('Authorization', 'Client-ID 91beea2a100108a');
+    xhr.onload = function(e) {
+        console.log(this.response);
+        var resp = JSON.parse(this.response);
+        console.log(resp);
+        //todo handle errors
+        //400 bad image
+
+        if (this.status == 200) {
+            var url = 'https://imgur.com/gallery/' + resp.data.id;
+            console.log(url);
+            window.open(url);
+
+            console.log(resp.data.link);
+            window.open(resp.data.link);
+        }
+    };
+
+    xhr.send(formData);
+}
+
 
 /**
  * Click handler to init the desktop capture grab
