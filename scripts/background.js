@@ -1,10 +1,11 @@
 chrome.app.runtime.onLaunched.addListener(function() {
   chrome.app.window.create('index.html', {
-    id: "CaptShare",
+    id: "CapShare",
     bounds: {
       width: 700,
-      height: 600
-    }
+      height: 400
+    },
+    resizable: false
   });
 });
 
@@ -14,11 +15,12 @@ chrome.commands.onCommand.addListener(function(command) {
     case "capture":
       
       chrome.app.window.create('index.html', {
-        id: "CaptShare",
+        id: "CapShare",
         bounds: {
           width: 700,
-          height: 600
-        }
+          height: 400
+        },
+        resizable: false
       });
       capture();
       

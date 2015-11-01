@@ -3,12 +3,43 @@
   <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <img width="50px" height="50px" src="images/CaptShare.png" id="watermark">
-  <!-- <video autoplay></video> -->
-  <p>
-    <button id='btnCapture'>Enable Capture</button>
-    <button id='btnScreenshot' style='display:none;'>Take Screenshot</button>
-  </p>
+  <div class="sidebar">
+    <div class="header">
+      <!-- logo -->
+    </div>
+    
+    <div class="options" style="display:none;">
+      <!-- textbox with link -->
+      <input type="text"></input>
+
+      <!-- download button -->
+      <button id='btnDownload'>Download</button>
+
+      <span class="divider" />
+      
+      <!-- Capture New Screenshot -->
+      <button id='btnNewShot'>New Screenshot</button>
+
+      <!-- Upload New Image -->
+      <button id='btnNewUpload'>Upload New Image</button>
+
+    </div>
+
+    <div class="footer">
+      <!-- copyright bla bla -->
+    </div>
+  </div>
+
+  <div class="main">
+    <img width="50px" height="50px" src="images/CaptShare.png" id="watermark">
+    
+    <p>
+      <button id='btnCapture'>Enable Capture</button>
+      <button id='btnScreenshot' style='display:none;'>Take Screenshot</button>
+    </p>
+
+  </div>
+  
 <script type='text/javascript' src='scripts/CaptShare/CaptShare.js'></script>
 
 <script type='text/javascript' src='scripts/CaptShare/imgurAPI.js'></script>
