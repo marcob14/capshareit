@@ -55,7 +55,7 @@ button.active {
 }
 
 #sidebar {
-  width: 199px;
+  width: 219px;
   float: left;
   height: 100%;
   border-right: 1px solid #44AB0D;
@@ -72,7 +72,7 @@ button.active {
   color: #fff;
   text-decoration: none;
   text-align: center;
-  width: 190px;
+  width: 210px;
   display: block;
   padding-bottom: 10px;
 }
@@ -83,7 +83,7 @@ button.active {
 
 #options input {
   height: 30px;
-  width: 180px;
+  width: 200px;
   margin: 10px;
   text-decoration: none;
   background: white;
@@ -94,7 +94,7 @@ button.active {
 }
 
 #options a {
-  width: 180px;
+  width: 200px;
   margin: 10px;
   text-decoration: none;
   display: block;
@@ -111,15 +111,15 @@ button.active {
 #options .divider {
   border-top: 1px solid #4BAD15;
   height: 1px;
-  width: 179px;
+  width: 199px;
   margin: 10px;
   clear: both;
 }
 
 .main {
   background: #222;
-  width: 500px;
+  width: 460px;
   float: left;
   text-align: center;
-  padding-top:150px;
+  height: 340px;
 }

@@ -28,10 +28,12 @@ CaptShare.imgurAPI = (function()
       if (this.status == 200) {
         var url = 'https://imgur.com/gallery/' + resp.data.id;
         console.log(url);
-        window.open(url);
+        //window.open(url);
 
         console.log(resp.data.link);
-        window.open(resp.data.link);
+        //window.open(resp.data.link);
+        document.getElementById('txtImgurLink').value = resp.data.link;
+
       }
     };
 
