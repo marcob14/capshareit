@@ -19,9 +19,8 @@ CaptShare.imgurAPI = (function()
     xhr.open('POST', postImageURL);
     xhr.setRequestHeader('Authorization', clientID);
     xhr.onload = function(e) {
-      console.log(this.response);
       var resp = JSON.parse(this.response);
-      console.log(resp);
+
       //todo handle errors
       //400 bad image
 

@@ -14,11 +14,10 @@ CaptShare.engine = (function()
 
   function onAccessApproved(desktop_id) {
     if (!desktop_id) {
-      console.log('Desktop Capture access rejected.');
       return;
     }
 
-    console.log("Desktop sharing started.. desktop_id:" + desktop_id);
+    //console.log("Desktop sharing started.. desktop_id:" + desktop_id);
 
     navigator.webkitGetUserMedia({
       audio: false,
@@ -35,7 +34,7 @@ CaptShare.engine = (function()
     function gotStream(stream) {
       local_stream = stream;
       local_stream_track = stream.getTracks()[0];
-      console.log("Received local stream");
+      //console.log("Received local stream");
 
       var video = document.createElement('video');
       video.addEventListener('loadedmetadata',function() {
@@ -46,7 +45,7 @@ CaptShare.engine = (function()
         local_stream = null;
         local_stream_track = null;
 
-        console.log('Desktop sharing stopped...');
+        //console.log('Desktop sharing stopped...');
       },false);
 
       video.src = URL.createObjectURL(stream);
@@ -55,7 +54,7 @@ CaptShare.engine = (function()
       //document.body.appendChild(video);
 
       stream.onended = function() {
-        console.log('STREAM ENDED!!!!');
+        //console.log('STREAM ENDED!!!!');
       };      
     }
 
@@ -70,7 +69,7 @@ CaptShare.engine = (function()
       }
 
       canvas = document.createElement('canvas');
-      console.log(vid);
+
       canvas.width = vid.videoWidth;
       canvas.height = vid.videoHeight;
       var ctx = canvas.getContext("2d");
@@ -78,7 +77,6 @@ CaptShare.engine = (function()
       
       //generating image url
       var url = canvas.toDataURL();
-      console.log(url);
       
       //open the image in a new tab
       //window.open(url);
@@ -98,8 +96,6 @@ CaptShare.engine = (function()
       canvas.style.width = width+'px';
       var main = document.getElementById('main');
       main.appendChild(canvas);
-
-      //todo: put canvas in div and replace the image of the cnvas each time...
       
       var btnDownload = document.getElementById('btnDownload');
       var d = new Date();
@@ -107,8 +103,6 @@ CaptShare.engine = (function()
       btnDownload.href = url;
       btnDownload.dataset.downloadurl = ['jpg', btnDownload.download, btnDownload.href].join(':');
       btnDownload.className = '';
-
-      console.log('taken!');
     }
   }
   
