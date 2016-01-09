@@ -47,13 +47,6 @@ button.active {
   background: linear-gradient(#E3E3E3 40%, #F9F9F9 70%);
 }
 
-#header {
-  background: white;
-  height: 40px;
-  width: 100%;
-  padding-left: 15px;
-}
-
 #sidebar {
   width: 219px;
   float: left;
@@ -132,5 +125,5 @@ button.active {
   width: 460px;
   float: left;
   text-align: center;
-  height: 340px;
+  height: 400px;
 }

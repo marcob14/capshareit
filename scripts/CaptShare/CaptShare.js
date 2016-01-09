@@ -87,7 +87,7 @@ CaptShare.engine = (function()
 
       canvas.id = 'cnvImage';
       canvas.style.padding = "10px";
-      var height = 340;
+      var height = 380;
       var width = (height * canvas.width / canvas.height);
       if(width > 460) {
         width = 460;
