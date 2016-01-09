@@ -95,14 +95,18 @@ CaptShare.engine = (function()
       canvas.style.height = height+'px';
       canvas.style.width = width+'px';
       var main = document.getElementById('main');
-      main.appendChild(canvas);
+      if(main) {
+        main.appendChild(canvas);
+      }
       
       var btnDownload = document.getElementById('btnDownload');
-      var d = new Date();
-      btnDownload.download = 'CaptShare_' + Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDay());
-      btnDownload.href = url;
-      btnDownload.dataset.downloadurl = ['jpg', btnDownload.download, btnDownload.href].join(':');
-      btnDownload.className = '';
+      if(btnDownload) {
+        var d = new Date();
+        btnDownload.download = 'CaptShare_' + Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDay());
+        btnDownload.href = url;
+        btnDownload.dataset.downloadurl = ['jpg', btnDownload.download, btnDownload.href].join(':');
+        btnDownload.className = '';
+      }
     }
   }
   

@@ -53,6 +53,9 @@ button.active {
   height: 100%;
   border-right: 1px solid #44AB0D;
   background: #50BD14;
+  text-align: center;
+  color: white;
+  padding-top: 20px;
 }
 
 #sidebar .footer {
