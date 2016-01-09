@@ -89,14 +89,11 @@ CaptShare.engine = (function()
       canvas.style.padding = "10px";
       var height = 340;
       var width = (height * canvas.width / canvas.height);
-console.log('width::', width);
-      console.log('height::', height);
       if(width > 460) {
         width = 460;
         height = (width * canvas.height / canvas.width);
       }
-      console.log('width::', width);
-      console.log('height::', height);
+
       canvas.style.height = height+'px';
       canvas.style.width = width+'px';
       var main = document.getElementById('main');
@@ -109,6 +106,7 @@ console.log('width::', width);
       btnDownload.download = 'CaptShare_' + Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDay());
       btnDownload.href = url;
       btnDownload.dataset.downloadurl = ['jpg', btnDownload.download, btnDownload.href].join(':');
+      btnDownload.className = '';
 
       console.log('taken!');
     }
