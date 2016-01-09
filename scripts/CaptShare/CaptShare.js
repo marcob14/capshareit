@@ -1,16 +1,3 @@
-// var CaptShare = {
-//   init: function() 
-//   {
-//     for(var mthd in this) 
-//     {
-//       if(typeof(this[mthd].init) == 'function') 
-//       {
-//         this[mthd].init();
-//       }
-//     }
-//   }
-// };
-
 if(typeof(CaptShare) != 'object') // object 
 {
     var CaptShare = {};
@@ -77,7 +64,12 @@ CaptShare.engine = (function()
     }
 
     function takeScreenshot(vid) {
-      var canvas = document.createElement('canvas');
+      var canvas = document.getElementById("cnvImage");
+      if(canvas) {
+        canvas.parentNode.removeChild(canvas);
+      }
+
+      canvas = document.createElement('canvas');
       console.log(vid);
       canvas.width = vid.videoWidth;
       canvas.height = vid.videoHeight;
@@ -93,11 +85,24 @@ CaptShare.engine = (function()
 
       CaptShare.imgurAPI.upload(url);
 
+      canvas.id = 'cnvImage';
       canvas.style.padding = "10px";
-      canvas.style.height = "100%";
-      canvas.style.width = "100%";
+      var height = 340;
+      var width = (height * canvas.width / canvas.height);
+console.log('width::', width);
+      console.log('height::', height);
+      if(width > 460) {
+        width = 460;
+        height = (width * canvas.height / canvas.width);
+      }
+      console.log('width::', width);
+      console.log('height::', height);
+      canvas.style.height = height+'px';
+      canvas.style.width = width+'px';
       var main = document.getElementById('main');
       main.appendChild(canvas);
+
+      //todo: put canvas in div and replace the image of the cnvas each time...
       
       var btnDownload = document.getElementById('btnDownload');
       var d = new Date();

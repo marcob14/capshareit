@@ -32,7 +32,11 @@ CaptShare.imgurAPI = (function()
 
         console.log(resp.data.link);
         //window.open(resp.data.link);
-        document.getElementById('txtImgurLink').value = resp.data.link;
+        var txtImgurLink = document.getElementById('txtImgurLink');
+        txtImgurLink.value = resp.data.link;
+        //copy to clipboard
+        txtImgurLink.select();
+        document.execCommand('copy');
 
       }
     };

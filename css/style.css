@@ -101,11 +101,22 @@ button.active {
   color: white;
   text-align: center;
   padding: 15px 0px;
+  cursor: pointer;
 }
 
 #options a:hover {
   background: #44AB0D;
   text-decoration: none;
+}
+
+#options .disabled {
+  color: #A5BB9A;
+}
+
+#options .disabled:hover {
+  background: #50BD14;
+  text-decoration: none;
+  cursor: default;
 }
 
 #options .divider {
