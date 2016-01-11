@@ -1,6 +1,6 @@
 {
   "name": "CaptShare",
-  "version": "0.14",
+  "version": "0.15",
   "manifest_version": 2,
   "icons": {
     "16": "images/CaptShare.png",
@@ -22,6 +22,7 @@
     }
   },
   "permissions": [
-    "desktopCapture"
+    "desktopCapture",
+    "clipboardWrite"
   ]
 }

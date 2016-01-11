@@ -32,18 +32,14 @@ CaptShare.imgurAPI = (function()
         console.log(resp.data.link);
         //window.open(resp.data.link);
         var txtImgurLink = document.getElementById('txtImgurLink');
-        if(!txtImgurLink) {
-          txtImgurLink = document.createElement('input');
-          txtImgurLink.type = 'text';
-          document.body.appendChild(txtImgurLink);
-
+        if(!txtImgurLink) { //taken using shortcuts
           window.open(resp.data.link);
         }
         txtImgurLink.value = resp.data.link;
+
         //copy to clipboard
         txtImgurLink.select();
         document.execCommand('copy');
-
       }
     };
 
