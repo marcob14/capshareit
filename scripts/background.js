@@ -24,11 +24,7 @@ chrome.commands.onCommand.addListener(function(command) {
       // });
       //capture();
   CaptShare.engine.capture();
-
-      
-      // can load a smaller window - load the js needed - and close once done?..
-      // to avoid js in the background
-      // this can also solve the desktopCapture window to be shown on top
+  
       break;
     default:
       return;

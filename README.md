@@ -1,7 +1,7 @@
 # CaptShare
 
 Capture and share your screen. 
-This app requires the permission `desktopCapture`.
+This app requires the permission 'desktopCapture' and 'clipboardWrite'.
 
 ## APIs
 
