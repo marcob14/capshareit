@@ -3,39 +3,24 @@
   <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <div id="sidebar">
-    <img width="35px" height="35px" src="images/CaptShare.png" id="watermark">
-    CaptShareIt!
-    <div id="options">
-      <!-- textbox with link -->
-      <input id="txtImgurLink" type="text"></input>
+  <div id="main" class="main">   
+
+    <div class="options">
+      CapShareIT
 
       <!-- download button -->
-      <a id="btnDownload" class="disabled">Download</a>
+      <a id="btnDownload">Download</a>
 
-      <div class="divider"></div>
-      
+      <!-- download button -->
+      <a id="btnCopyLink">Copy Link</a>
+
       <!-- Capture New Screenshot -->
       <a id='btnNewShot'>New Screenshot</a>
 
-      <!-- Upload New Image -->
-      <a id='btnNewUpload' class="disabled">Upload New Image</a>
+      <!-- textbox with link -->
+      <input id="txtImgurLink" type="text" style="display:none"></input>
 
-      <div class="divider"></div>
-
-    </div>
-
-    <div class="footer">
-      <a href="http://www.marcoborg.com" target="_blank" id='marcoborg'>Marco Borg</a>
-    </div>
-  </div>
-
-  <div id="main" class="main">    
-    <!-- <p>
-      <button id='btnCapture'>Enable Capture</button>
-      <button id='btnScreenshot' style='display:none;'>Take Screenshot</button>
-    </p> -->
-
+    </div> 
   </div>
   
 <script type='text/javascript' src='scripts/CaptShare/CaptShare.js'></script>

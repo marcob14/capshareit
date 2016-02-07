@@ -34,6 +34,7 @@ CaptShare.imgurAPI = (function()
         var txtImgurLink = document.getElementById('txtImgurLink');
         if(!txtImgurLink) { //taken using shortcuts
           window.open(resp.data.link);
+          return;
         }
         txtImgurLink.value = resp.data.link;
 

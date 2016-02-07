@@ -47,86 +47,45 @@ button.active {
   background: linear-gradient(#E3E3E3 40%, #F9F9F9 70%);
 }
 
-#sidebar {
-  width: 219px;
-  float: left;
-  height: 100%;
-  border-right: 1px solid #44AB0D;
-  background: #50BD14;
-  text-align: center;
-  color: white;
-  padding-top: 20px;
-}
-
-#sidebar .footer {
-  bottom: 0px;
+.options {
+  height: 30px;
   position: fixed;
-}
-
-#marcoborg {
-  font-size: 8pt;
-  color: #fff;
-  text-decoration: none;
-  text-align: center;
-  width: 210px;
-  display: block;
-  padding-bottom: 10px;
-}
-
-#options {
+  bottom: 0;
+  width: 100%;
+  color: #666;
+  border-top: 1px solid #333;
   padding-top: 10px;
 }
 
-#options input {
+.options input {
   height: 30px;
   width: 200px;
   margin: 10px;
   text-decoration: none;
-  background: white;
-  border: 1px solid #44AB0D;
-  background: #77D842;
-  color: white;
+  border: 0px;
+  background: #222;
+  color: #999;
   padding: 0 10px;
 }
 
-#options a {
+.options a {
   width: 200px;
-  margin: 10px;
   text-decoration: none;
-  display: block;
-  color: white;
+  color: #999;
   text-align: center;
-  padding: 15px 0px;
+  padding: 10px;
   cursor: pointer;
 }
 
-#options a:hover {
-  background: #44AB0D;
+.options a:hover {
+  color: #ccc;
   text-decoration: none;
-}
-
-#options .disabled {
-  color: #A5BB9A;
-}
-
-#options .disabled:hover {
-  background: #50BD14;
-  text-decoration: none;
-  cursor: default;
-}
-
-#options .divider {
-  border-top: 1px solid #4BAD15;
-  height: 1px;
-  width: 199px;
-  margin: 10px;
-  clear: both;
 }
 
 .main {
   background: #222;
-  width: 460px;
+  width: 100%;
   float: left;
   text-align: center;
-  height: 400px;
+  height: 100%;
 }
