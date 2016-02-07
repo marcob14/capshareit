@@ -88,8 +88,8 @@ CaptShare.engine = (function()
       var height = window.innerHeight - 60;
       console.log("h:",window.innerHeight,"; w:",window.innerWidth);
       var width = (height * canvas.width / canvas.height);
-      if(width > window.innerWidth) {
-        width = window.innerWidth;
+      if(width > (window.innerWidth - 20)) {
+        width = window.innerWidth - 20;
         height = (width * canvas.height / canvas.width);
       }
 
@@ -108,6 +108,18 @@ CaptShare.engine = (function()
         btnDownload.dataset.downloadurl = ['jpg', btnDownload.download, btnDownload.href].join(':');
         btnDownload.className = '';
       }
+
+      var optionsMenu = document.getElementById('options');
+      if(optionsMenu) {
+        optionsMenu.style.display = 'block';
+      }
+
+      var btnScreenShot = document.getElementById('btnScreenShot');
+      if(btnScreenShot) {
+        btnScreenShot.style.display = 'none';
+      }
+
+
     }
   }
   

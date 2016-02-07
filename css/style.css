@@ -1,13 +1,13 @@
 html {
-  height: 400px;
-  width: 700px;
+  height: 100%;
+  width: 100%;
 }
 
 body {
   background: #222;
   margin: 0;
-  height: 400px;
-  width: 700px;
+  height: 100%;
+  width: 100%;
 }
 
 video {
@@ -47,6 +47,18 @@ button.active {
   background: linear-gradient(#E3E3E3 40%, #F9F9F9 70%);
 }
 
+#btnScreenshot {
+  color: #999;
+  font-size: 14pt;
+  position: relative;
+  top: 50%;
+  cursor: pointer;
+  padding: 20px;
+  background: url('../images/new.png') 70px 10px no-repeat;
+  background-size: 42px;
+  padding-top: 70px;  
+}
+
 .options {
   height: 30px;
   position: fixed;
@@ -55,6 +67,7 @@ button.active {
   color: #666;
   border-top: 1px solid #333;
   padding-top: 10px;
+  display: none;
 }
 
 .options input {
