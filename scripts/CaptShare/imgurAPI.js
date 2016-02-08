@@ -8,7 +8,7 @@ CaptShare.imgurAPI = (function()
   var clientID = 'Client-ID 91beea2a100108a';
   var postImageURL = 'https://api.imgur.com/3/image';
   
-  function uploadImage(img) {
+  function uploadImage(img, cb) {
     //removing the first part of the DataURL "data:image/png;base64,"
     img = img.split(',')[1];
     
@@ -23,6 +23,8 @@ CaptShare.imgurAPI = (function()
 
       //todo handle errors
       //400 bad image
+
+      //call cb & pass errors
 
       if (this.status == 200) {
         var url = 'https://imgur.com/gallery/' + resp.data.id;
@@ -41,6 +43,10 @@ CaptShare.imgurAPI = (function()
         //copy to clipboard
         txtImgurLink.select();
         document.execCommand('copy');
+
+        if(typeof cb == 'function') {
+          cb();
+        }
       }
     };
 
@@ -49,8 +55,8 @@ CaptShare.imgurAPI = (function()
   
 return{
   
-  upload: function(img){
-    uploadImage(img);
+  upload: function(img, cb){
+    uploadImage(img, cb);
   }
 }
   

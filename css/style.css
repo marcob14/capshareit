@@ -95,6 +95,21 @@ button.active {
   text-decoration: none;
 }
 
+.options .enabled {
+  color: #999;
+  cursor: pointer;
+}
+
+.options .disabled {
+  color: #888;
+  cursor: default;
+}
+
+.options .disabled:hover {
+  color: #888;
+  cursor: default;
+}
+
 .main {
   background: #222;
   width: 100%;

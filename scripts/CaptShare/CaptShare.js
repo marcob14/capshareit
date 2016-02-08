@@ -12,6 +12,17 @@ CaptShare.engine = (function()
     chrome.desktopCapture.chooseDesktopMedia(["screen", "window"], onAccessApproved);
   }
 
+  function copyLink() {
+    var txtImgurLink = document.getElementById('txtImgurLink');
+    if(txtImgurLink) {
+      //copy to clipboard
+      txtImgurLink.select();
+      document.execCommand('copy');
+
+      console.log('link copied: ', txtImgurLink.value);
+    }
+  }
+
   function onAccessApproved(desktop_id) {
     if (!desktop_id) {
       return;
@@ -68,6 +79,12 @@ CaptShare.engine = (function()
         canvas.parentNode.removeChild(canvas);
       }
 
+      var btnCopyLink = document.getElementById('btnCopyLink');
+      if(btnCopyLink) {
+        btnCopyLink.className = 'disabled';
+        btnCopyLink.innerHTML = 'Uploading...';
+      }
+
       canvas = document.createElement('canvas');
 
       canvas.width = vid.videoWidth;
@@ -77,11 +94,16 @@ CaptShare.engine = (function()
       
       //generating image url
       var url = canvas.toDataURL();
-      
-      //open the image in a new tab
-      //window.open(url);
 
-      CaptShare.imgurAPI.upload(url);
+      //update text to 'uploading'
+      CaptShare.imgurAPI.upload(url, function() {
+        console.log('uploaded');
+        var btnCopyLink = document.getElementById('btnCopyLink');
+        if(btnCopyLink) {
+          btnCopyLink.className = 'enabled';
+          btnCopyLink.innerHTML = 'Copy Link';
+        }
+      });
 
       canvas.id = 'cnvImage';
       canvas.style.padding = "10px";
@@ -118,13 +140,12 @@ CaptShare.engine = (function()
       if(btnScreenShot) {
         btnScreenShot.style.display = 'none';
       }
-
-
     }
   }
   
 return{
-  capture: capture
+  capture: capture,
+  copyLink: copyLink
 }
   
 })();
