@@ -34,15 +34,13 @@ CaptShare.imgurAPI = (function()
         console.log(resp.data.link);
         //window.open(resp.data.link);
         var txtImgurLink = document.getElementById('txtImgurLink');
-        if(!txtImgurLink) { //taken using shortcuts
-          window.open(resp.data.link);
-          return;
-        }
-        txtImgurLink.value = resp.data.link;
+        if(txtImgurLink) { 
+          txtImgurLink.value = resp.data.link;
 
-        //copy to clipboard
-        txtImgurLink.select();
-        document.execCommand('copy');
+          //copy to clipboard
+          txtImgurLink.select();
+          document.execCommand('copy');
+        }        
 
         if(typeof cb == 'function') {
           cb();
