@@ -102,6 +102,9 @@ CaptShare.engine = (function()
         if(btnCopyLink) {
           btnCopyLink.className = 'enabled';
           btnCopyLink.innerHTML = 'Copy Link';
+
+          //drawing attention once image is uploaded and link is copied
+          chrome.app.window.current().drawAttention();
         }
       });
 
@@ -140,6 +143,10 @@ CaptShare.engine = (function()
       if(btnScreenShot) {
         btnScreenShot.style.display = 'none';
       }
+
+      //focusing window
+      chrome.app.window.current().show();
+
     }
   }
   
