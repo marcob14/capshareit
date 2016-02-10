@@ -1,9 +1,11 @@
 chrome.app.runtime.onLaunched.addListener(function() {
   chrome.app.window.create('index.html', {
     id: "CapShare",
-    bounds: {
+    innerBounds: {
       width: 700,
-      height: 400
+      height: 400,
+      minWidth: 400,
+      minHeight: 270
     }
   });
 });
@@ -14,9 +16,11 @@ chrome.commands.onCommand.addListener(function(command) {
     case "capture":
       chrome.app.window.create('index.html', {
         id: "CapShare",
-        bounds: {
+        innerBounds: {
           width: 700,
-          height: 400
+          height: 400,
+          minWidth: 400,
+          minHeight: 270
         }
       }, function(win) {
         console.log(win);

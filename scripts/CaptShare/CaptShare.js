@@ -23,6 +23,22 @@ CaptShare.engine = (function()
     }
   }
 
+  function resizeCanvas() {
+    var canvas = document.getElementById("cnvImage");
+    if(canvas) {
+      var height = window.innerHeight - 60;
+      console.log("h:",window.innerHeight,"; w:",window.innerWidth);
+      var width = (height * canvas.width / canvas.height);
+      if(width > (window.innerWidth - 20)) {
+        width = window.innerWidth - 20;
+        height = (width * canvas.height / canvas.width);
+      }
+
+      canvas.style.height = height+'px';
+      canvas.style.width = width+'px';
+    }
+  }
+
   function onAccessApproved(desktop_id) {
     if (!desktop_id) {
       return;
@@ -110,19 +126,13 @@ CaptShare.engine = (function()
 
       canvas.id = 'cnvImage';
       canvas.style.padding = "10px";
-      var height = window.innerHeight - 60;
-      console.log("h:",window.innerHeight,"; w:",window.innerWidth);
-      var width = (height * canvas.width / canvas.height);
-      if(width > (window.innerWidth - 20)) {
-        width = window.innerWidth - 20;
-        height = (width * canvas.height / canvas.width);
-      }
 
-      canvas.style.height = height+'px';
-      canvas.style.width = width+'px';
       var main = document.getElementById('main');
       if(main) {
         main.appendChild(canvas);
+
+        //setting canvas size
+        resizeCanvas();
       }
       
       var btnDownload = document.getElementById('btnDownload');
@@ -152,7 +162,8 @@ CaptShare.engine = (function()
   
 return{
   capture: capture,
-  copyLink: copyLink
+  copyLink: copyLink,
+  resizeCanvas: resizeCanvas
 }
   
 })();
