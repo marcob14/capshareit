@@ -4,8 +4,8 @@ chrome.app.runtime.onLaunched.addListener(function() {
     innerBounds: {
       width: 700,
       height: 400,
-      minWidth: 400,
-      minHeight: 270
+      minWidth: 500,
+      minHeight: 330
     }
   });
 });
@@ -19,8 +19,8 @@ chrome.commands.onCommand.addListener(function(command) {
         innerBounds: {
           width: 700,
           height: 400,
-          minWidth: 400,
-          minHeight: 270
+          minWidth: 500,
+          minHeight: 330
         }
       }, function(win) {
         console.log(win);

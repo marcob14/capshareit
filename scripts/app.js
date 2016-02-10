@@ -10,6 +10,14 @@ document.getElementById('btnCopyLink').addEventListener('click', function(e) {
   CaptShare.engine.copyLink();
 });
 
+document.getElementById('btnHelp').addEventListener('click', function(e) {
+  //show help
+});
+
+document.getElementById('btnSettings').addEventListener('click', function(e) {
+  //show settings
+});
+
 chrome.app.window.current().onBoundsChanged.addListener(function() {
   CaptShare.engine.resizeCanvas();
 });

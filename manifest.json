@@ -1,5 +1,6 @@
 {
-  "name": "CaptShare",
+  "name": "CapShareIt",
+  "description": "CapShareIt allows you to capture your screen or windows and uploads the images to Imgur so you can then share them easily using the provided links.",
   "version": "0.15",
   "manifest_version": 2,
   "icons": {
