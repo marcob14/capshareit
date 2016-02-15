@@ -25,7 +25,7 @@
   "permissions": [
     "desktopCapture",
     "clipboardWrite",
-    "notifications" //future
-    //add other permissions i might add in the future?..
+    "notifications",
+    "storage"
   ]
 }

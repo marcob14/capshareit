@@ -112,7 +112,11 @@ CaptShare.engine = (function()
       var url = canvas.toDataURL();
 
       //update text to 'uploading'
-      CaptShare.imgurAPI.upload(url, function() {
+      CaptShare.imgurAPI.upload(url, function(err) {
+        if(err) {
+          return;
+        }
+
         console.log('uploaded');
         var btnCopyLink = document.getElementById('btnCopyLink');
         if(btnCopyLink) {
