@@ -80,7 +80,7 @@ console.log(status);
 
         //tests
         console.log('adding to history: ', resp.data);
-        CaptShare.history.add(resp.data.id, resp.data, function() {
+        CaptShare.history.add(resp.data, function() {
           console.log('check add lasterror: ', chrome.runtime.lastError);
           console.log('added to history');
           CaptShare.history.getAll(function(data) {
@@ -130,6 +130,26 @@ console.log(status);
     xhr.send();
 
   }
+
+  function deleteImage(deletehash, cb) {
+    console.log('deleteImage');
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE', postImageURL+"/"+deletehash);
+    xhr.setRequestHeader('Authorization', clientID);
+    xhr.onload = function(e) {
+      var resp = JSON.parse(this.response);
+
+      console.log(resp);
+
+      if (this.status == 200) {
+        //...
+        cb();
+      }
+    };
+
+    xhr.send();
+
+  }
   
 return{
   
@@ -138,6 +158,9 @@ return{
   },
   getImageInfo: function(id, cb) {
     getImageInfo(id, cb);
+  },
+  delete: function(deletehash, cb) {
+    deleteImage(deletehash, cb);
   }
 }
   

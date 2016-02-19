@@ -5,27 +5,28 @@ if(typeof(CaptShare) != 'object') // object
 
 CaptShare.history = (function()
 {
-  var history = {};
+  var history = [];
   var init = false;
 
   chrome.storage.sync.get('history', function(data) {
     console.log('history', data);
 
     data = data || {};
-    history = data.history || {};
+    history = data.history || [];
     init = true;
   })
 
   function saveToStorage(cb) {
+    console.log('saveToStorage', history);
     cb = cb || function(){};
 
     chrome.storage.sync.set({'history': history}, cb);
   }
 
-  function addHistoryEntry(id, data, cb) {
+  function addHistoryEntry(data, cb) {
     cb = cb || function(){};
-
-    history[id] = data;
+console.log(history);
+    history.push(data);
     saveToStorage(cb);
   }
 
@@ -50,12 +51,22 @@ CaptShare.history = (function()
     if(!init) {
       var iniInterval = setInterval(function() {
         if(init) {
-          cb(history[id]);
-          clearInterval(iniInterval);
+          for(var x = 0; x < history.length; x++) {
+            if(history[x].id === id) {
+              cb(history[x]);
+              clearInterval(iniInterval);
+              return;
+            }
+          }
         }
       }, 1000);
     } else {
-      cb(history[id]);
+      for(var x = 0; x < history.length; x++) {
+        if(history[x].id === id) {
+          cb(history[x]);
+          return;
+        }
+      }
     }
   }
 
@@ -65,20 +76,29 @@ CaptShare.history = (function()
     if(!init) {
       var iniInterval = setInterval(function() {
         if(init) {
-          delete history[id];
-          saveToStorage(cb);
-          clearInterval(iniInterval);
+          for(var x = 0; x < history.length; x++) {
+            if(history[x].id === id) {
+              history.splice(x, 1);
+              saveToStorage(cb);
+              clearInterval(iniInterval);
+              return;
+            }
+          }
         }
       }, 1000);
     } else {
-      delete history[id];
-      saveToStorage(cb);
+      for(var x = 0; x < history.length; x++) {
+        if(history[x].id === id) {
+          history.splice(x, 1);
+          saveToStorage(cb);
+        }
+      }
     }
   }
 
 return {
- add: function(id, data, cb) {
-  addHistoryEntry(id, data, cb);
+ add: function(data, cb) {
+  addHistoryEntry(data, cb);
  },
  get: function(id, cb) {
   getHistoryEntry(id, cb);
@@ -86,7 +106,7 @@ return {
  getAll: function(cb) {
   getAllHistory(cb);
  },
- delete: function(id, cb) {
+ remove: function(id, cb) {
   deleteHistoryEntry(id, cb);
  }
 }
