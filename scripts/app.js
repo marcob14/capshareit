@@ -10,6 +10,10 @@ document.getElementById('btnCopyLink').addEventListener('click', function(e) {
   CaptShare.engine.copyLink();
 });
 
+document.getElementById('btnUpload').addEventListener('click', function(e) {
+  CaptShare.engine.upload();
+});
+
 document.getElementById('btnHelp').addEventListener('click', function(e) {
   //show help
 });

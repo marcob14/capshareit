@@ -158,12 +158,12 @@ button.active {
 }
 
 .options .disabled {
-  color: #888;
+  color: #555;
   cursor: default;
 }
 
 .options .disabled:hover {
-  color: #888;
+  color: #555;
   cursor: default;
 }
 

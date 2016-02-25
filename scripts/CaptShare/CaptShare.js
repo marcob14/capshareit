@@ -12,33 +12,6 @@ CaptShare.engine = (function()
     chrome.desktopCapture.chooseDesktopMedia(["screen", "window"], onAccessApproved);
   }
 
-  function copyLink() {
-    var txtImgurLink = document.getElementById('txtImgurLink');
-    if(txtImgurLink) {
-      //copy to clipboard
-      txtImgurLink.select();
-      document.execCommand('copy');
-
-      console.log('link copied: ', txtImgurLink.value);
-    }
-  }
-
-  function resizeCanvas() {
-    var canvas = document.getElementById("cnvImage");
-    if(canvas) {
-      var height = window.innerHeight - 60;
-      console.log("h:",window.innerHeight,"; w:",window.innerWidth);
-      var width = (height * canvas.width / canvas.height);
-      if(width > (window.innerWidth - 20)) {
-        width = window.innerWidth - 20;
-        height = (width * canvas.height / canvas.width);
-      }
-
-      canvas.style.height = height+'px';
-      canvas.style.width = width+'px';
-    }
-  }
-
   function onAccessApproved(desktop_id) {
     if (!desktop_id) {
       return;
@@ -95,12 +68,6 @@ CaptShare.engine = (function()
         canvas.parentNode.removeChild(canvas);
       }
 
-      var btnCopyLink = document.getElementById('btnCopyLink');
-      if(btnCopyLink) {
-        btnCopyLink.className = 'disabled';
-        btnCopyLink.innerHTML = 'Uploading...';
-      }
-
       canvas = document.createElement('canvas');
 
       canvas.width = vid.videoWidth;
@@ -110,23 +77,6 @@ CaptShare.engine = (function()
       
       //generating image url
       var url = canvas.toDataURL();
-
-      //update text to 'uploading'
-      CaptShare.imgurAPI.upload(url, function(err) {
-        if(err) {
-          return;
-        }
-
-        console.log('uploaded');
-        var btnCopyLink = document.getElementById('btnCopyLink');
-        if(btnCopyLink) {
-          btnCopyLink.className = 'enabled';
-          btnCopyLink.innerHTML = 'Copy Link';
-
-          //drawing attention once image is uploaded and link is copied
-          chrome.app.window.current().drawAttention();
-        }
-      });
 
       canvas.id = 'cnvImage';
       canvas.style.padding = "10px";
@@ -158,16 +108,120 @@ CaptShare.engine = (function()
         btnScreenShot.style.display = 'none';
       }
 
+      var btnUpload = document.getElementById('btnUpload');
+      if(btnUpload) {
+        btnUpload.className = '';
+        btnUpload.innerHTML = 'Upload';
+      }
+
+      var btnCopyLink = document.getElementById('btnCopyLink');
+      if(btnCopyLink) {
+        btnCopyLink.className = 'disabled';
+      }
+
+      var btnDelete = document.getElementById('btnDelete');
+      if(btnDelete) {
+        btnDelete.className = 'disabled';
+      }
+
       //focusing window
       chrome.app.window.current().show();
 
+    }
+  }
+
+  function upload() {
+    //update text to 'uploading'
+    var btnUpload = document.getElementById('btnUpload');
+    if(btnUpload) {
+      btnUpload.className = 'disabled';
+      btnUpload.innerHTML = 'Uploading...';
+    }
+
+    var canvas = document.getElementById("cnvImage");
+    if(!canvas) {
+      console.log('canvas not found!');
+      return;
+    }
+
+    var url = canvas.toDataURL();
+
+    CaptShare.imgurAPI.upload(url, function(err) {
+      if(err) {
+        return;
+      }
+
+      console.log('uploaded');
+      var btnCopyLink = document.getElementById('btnCopyLink');
+      if(btnCopyLink) {
+        btnCopyLink.className = 'enabled';
+        btnCopyLink.innerHTML = 'Copy Link';
+
+        //drawing attention once image is uploaded and link is copied
+        chrome.app.window.current().drawAttention();
+      }
+
+      if(btnUpload) {
+        btnUpload.innerHTML = 'Uploaded';
+      }
+
+      var btnCopyLink = document.getElementById('btnCopyLink');
+      if(btnCopyLink) {
+        btnCopyLink.className = '';
+      }
+
+      var btnDelete = document.getElementById('btnDelete');
+      if(btnDelete) {
+        btnDelete.className = '';
+      }
+    });
+  }
+
+  function copyLink() {
+    var txtImgurLink = document.getElementById('txtImgurLink');
+    if(txtImgurLink) {
+      //copy to clipboard
+      txtImgurLink.select();
+      document.execCommand('copy');
+
+      var btnCopyLink = document.getElementById('btnCopyLink');
+      if(btnCopyLink) {
+        btnCopyLink.innerHTML = 'copied';
+
+        window.setTimeout(function() {
+          console.log(btnCopyLink);
+          var btnCopyLink = document.getElementById('btnCopyLink');
+          if(btnCopyLink) {
+            btnCopyLink.innerHTML = 'Copy Link';
+          }
+        },1000);
+      }
+
+      console.log('link copied: ', txtImgurLink.value);
+    }
+  }
+
+  function resizeCanvas() {
+    var canvas = document.getElementById("cnvImage");
+    if(canvas) {
+      var height = window.innerHeight - 60;
+      console.log("h:",window.innerHeight,"; w:",window.innerWidth);
+      var width = (height * canvas.width / canvas.height);
+      if(width > (window.innerWidth - 20)) {
+        width = window.innerWidth - 20;
+        height = (width * canvas.height / canvas.width);
+      }
+
+      canvas.style.height = height+'px';
+      canvas.style.width = width+'px';
     }
   }
   
 return{
   capture: capture,
   copyLink: copyLink,
-  resizeCanvas: resizeCanvas
+  resizeCanvas: resizeCanvas,
+  upload: upload
 }
   
 })();
