@@ -15,11 +15,19 @@ document.getElementById('btnUpload').addEventListener('click', function(e) {
 });
 
 document.getElementById('btnHelp').addEventListener('click', function(e) {
-  //show help
+  showModal('help');
+});
+
+document.getElementById('btnCloseSettings').addEventListener('click', function(e) {
+  closeModal('settings');
+});
+
+document.getElementById('btnCloseHelp').addEventListener('click', function(e) {
+  closeModal('help');
 });
 
 document.getElementById('btnSettings').addEventListener('click', function(e) {
-  //show settings
+  showModal('settings');
 });
 
 chrome.app.window.current().onBoundsChanged.addListener(function() {
