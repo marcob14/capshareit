@@ -2,10 +2,10 @@ chrome.app.runtime.onLaunched.addListener(function() {
   chrome.app.window.create('index.html', {
     id: "CapShare",
     innerBounds: {
-      width: 700,
-      height: 400,
-      minWidth: 500,
-      minHeight: 330
+      width: 730,
+      height: 450,
+      minWidth: 730,
+      minHeight: 450
     }
   });
 });
@@ -17,10 +17,10 @@ chrome.commands.onCommand.addListener(function(command) {
       chrome.app.window.create('index.html', {
         id: "CapShare",
         innerBounds: {
-          width: 700,
-          height: 400,
-          minWidth: 500,
-          minHeight: 330
+          width: 730,
+          height: 450,
+          minWidth: 730,
+          minHeight: 450
         }
       }, function(win) {
         console.log(win);
