@@ -15,6 +15,20 @@ document.getElementById('btnUpload').addEventListener('click', function(e) {
 });
 
 document.getElementById('btnHelp').addEventListener('click', function(e) {
+  var modal = {
+    id: "hello",
+    width: 300,
+    height: 100,
+    title: "Hello",
+    message: "This is a test wuhu..",
+    buttons: [
+      {text:"cancel", action:function(){closeModal('hello', true);}},
+      {text:"ok", action:function(){console.log('ok!');}}
+      ]
+  }
+
+  showMessage(modal);
+
   showModal('help');
 });
 
