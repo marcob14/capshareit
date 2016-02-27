@@ -22,26 +22,26 @@ document.getElementById('btnHelp').addEventListener('click', function(e) {
     title: "Hello",
     message: "This is a test wuhu..",
     buttons: [
-      {text:"cancel", action:function(){closeModal('hello', true);}},
+      {text:"cancel", action:function(){CaptShare.modal.closeModal('hello', true);}},
       {text:"ok", action:function(){console.log('ok!');}}
       ]
   }
 
-  showMessage(modal);
+  CaptShare.modal.showMessage(modal);
 
-  showModal('help');
+  CaptShare.modal.showModal('help');
 });
 
 document.getElementById('btnCloseSettings').addEventListener('click', function(e) {
-  closeModal('settings');
+  CaptShare.modal.closeModal('settings');
 });
 
 document.getElementById('btnCloseHelp').addEventListener('click', function(e) {
-  closeModal('help');
+  CaptShare.modal.closeModal('help');
 });
 
 document.getElementById('btnSettings').addEventListener('click', function(e) {
-  showModal('settings');
+  CaptShare.modal.showModal('settings');
 });
 
 chrome.app.window.current().onBoundsChanged.addListener(function() {
