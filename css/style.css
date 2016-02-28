@@ -190,6 +190,8 @@ button.active {
   border: #ccc solid 1px;
   border-radius: 5px;
   display: none;
+  opacity: 0;
+  animation: fadeIn 0.15s;
 }
 
 .modalBg {
@@ -199,6 +201,8 @@ button.active {
   position:fixed;
   z-index: 1;
   display: none;
+  opacity: 0;
+  animation: fadeIn 0.15s;
 }
 
 .modalButtonsCont {
@@ -236,4 +240,9 @@ button.active {
   padding-bottom: 10px;
   font-size: 9pt;
   font-weight: 200;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

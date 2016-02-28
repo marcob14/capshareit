@@ -104,9 +104,23 @@ console.log(status);
           document.execCommand('copy');
         }
 
-        cb();
+        cb(null, resp.data);
       });
     };
+
+    xhr.onreadystatechange = function(e) {
+      console.log('ready state change!', e);
+      if(this.status == 0) {
+        console.log('error');
+      }
+    }
+
+    xhr.onerror = function(e) {
+      if(this.status == 0) {
+        console.log('error');
+        cb(this);
+      }
+    }
 
     xhr.send(formData);
   }
@@ -127,6 +141,13 @@ console.log(status);
       }
     };
 
+    xhr.onerror = function(e) {
+      if(this.status == 0) {
+        console.log('error');
+        cb(this);
+      }
+    }
+
     xhr.send();
 
   }
@@ -139,13 +160,20 @@ console.log(status);
     xhr.onload = function(e) {
       var resp = JSON.parse(this.response);
 
-      console.log(resp);
+      console.log('delete: ', resp);
 
       if (this.status == 200) {
         //...
         cb();
       }
     };
+
+    xhr.onerror = function(e) {
+      if(this.status == 0) {
+        console.log('error');
+        cb(this);
+      }
+    }
 
     xhr.send();
 

@@ -146,8 +146,23 @@ CaptShare.engine = (function()
 
     var url = canvas.toDataURL();
 
-    CaptShare.imgurAPI.upload(url, function(err) {
+    CaptShare.imgurAPI.upload(url, function(err, imageData) {
       if(err) {
+        var modal = {
+          id: "uploadError",
+          width: 300,
+          height: 120,
+          title: "Error!",
+          message: "There was an error while uploading the screenshot to imgur.",
+          buttons: [
+            {text:"ok", action:function(){CaptShare.modal.closeModal('uploadError', true);}}
+          ]
+        }
+
+        CaptShare.modal.showMessage(modal);
+
+        btnUpload.className = '';
+        btnUpload.innerHTML = 'Upload';
         return;
       }
 
@@ -173,6 +188,68 @@ CaptShare.engine = (function()
       var btnDelete = document.getElementById('btnDelete');
       if(btnDelete) {
         btnDelete.className = '';
+
+        console.log(imageData);
+
+        btnDelete.addEventListener('click', function(e) {
+          var confirmDeleteModal = {
+            id: "confirmDelete",
+            width: 300,
+            height: 120,
+            title: "Delete Confirmation",
+            message: "Are you sure you want to delete the image from imgur?",
+            buttons: [
+              {text:"no", action:function(){CaptShare.modal.closeModal('confirmDelete', true);}},
+              {text:"yes", action:function(){
+                  //need delete hash & image id
+                  CaptShare.imgurAPI.delete(imageData.deletehash, function(err) {
+                    if(err) {
+                      console.log('error while deleting');
+                      var deleteErrorModal = {
+                        id: "deleteError",
+                        width: 300,
+                        height: 120,
+                        title: "Error!",
+                        message: "There was an error while deleting the screenshot from imgur.",
+                        buttons: [
+                          {text:"ok", action:function(){CaptShare.modal.closeModal('deleteError', true);}}
+                        ]
+                      }
+
+                      CaptShare.modal.showMessage(deleteErrorModal);
+                      return;
+                    }
+                    console.log('deleted!');
+                    CaptShare.history.remove(imageData.id, function() {
+                      console.log('removed from history');
+
+                      //show message & remove image? .. 
+                      // need to work more on this..
+                      // re-enable upload button?..
+
+                      var deletedModal = {
+                        id: "deleteSuccess",
+                        width: 300,
+                        height: 100,
+                        title: "Success!",
+                        message: "The image was successfully deleted from imgur.",
+                        buttons: [
+                          {text:"ok", action:function(){CaptShare.modal.closeModal('deleteSuccess', true);}}
+                        ]
+                      }
+
+                      CaptShare.modal.showMessage(deletedModal);
+                    });
+                  });
+
+                  CaptShare.modal.closeModal('confirmDelete', true);
+                }
+              }
+            ]
+          }
+
+          CaptShare.modal.showMessage(confirmDeleteModal);
+        });
       }
     });
   }
