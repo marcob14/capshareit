@@ -122,6 +122,7 @@ CaptShare.engine = (function()
       var btnDelete = document.getElementById('btnDelete');
       if(btnDelete) {
         btnDelete.className = 'disabled';
+        btnDelete.removeEventListener('click');
       }
 
       //focusing window
@@ -311,11 +312,9 @@ CaptShare.engine = (function()
                   if(updateHistory) {
                     updateHistoryData();
                   } else {
-                    
-                    //todo: need to disable buttons literally.. do not allow clicks!.. (throughout)
-
                     var btnUpload = document.getElementById('btnUpload');
                     if(btnUpload) {
+                      btnUpload.className = '';
                       btnUpload.innerHTML = 'Upload';
                     }
 
@@ -327,6 +326,10 @@ CaptShare.engine = (function()
                     var btnDelete = document.getElementById('btnDelete');
                     if(btnDelete) {
                       btnDelete.className = 'disabled';
+
+                      //todo: fix this:
+                      btnDelete.removeEventListener('click');
+                    }
                   }
 
                   var deletedModal = {

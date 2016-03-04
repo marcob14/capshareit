@@ -13,7 +13,9 @@ document.getElementById('btnCopyLink').addEventListener('click', function(e) {
 });
 
 document.getElementById('btnUpload').addEventListener('click', function(e) {
-  CaptShare.engine.upload();
+  if(this.className != 'disabled') {
+    CaptShare.engine.upload();
+  }
 });
 
 document.getElementById('btnHelp').addEventListener('click', function(e) {
