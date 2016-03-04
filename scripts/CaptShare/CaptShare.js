@@ -191,65 +191,7 @@ CaptShare.engine = (function()
 
         console.log(imageData);
 
-        btnDelete.addEventListener('click', function(e) {
-          var confirmDeleteModal = {
-            id: "confirmDelete",
-            width: 300,
-            height: 120,
-            title: "Delete Confirmation",
-            message: "Are you sure you want to delete the image from imgur?",
-            buttons: [
-              {text:"no", action:function(){CaptShare.modal.closeModal('confirmDelete', true);}},
-              {text:"yes", action:function(){
-                  //need delete hash & image id
-                  CaptShare.imgurAPI.delete(imageData.deletehash, function(err) {
-                    if(err) {
-                      console.log('error while deleting');
-                      var deleteErrorModal = {
-                        id: "deleteError",
-                        width: 300,
-                        height: 120,
-                        title: "Error!",
-                        message: "There was an error while deleting the screenshot from imgur.",
-                        buttons: [
-                          {text:"ok", action:function(){CaptShare.modal.closeModal('deleteError', true);}}
-                        ]
-                      }
-
-                      CaptShare.modal.showMessage(deleteErrorModal);
-                      return;
-                    }
-                    console.log('deleted!');
-                    CaptShare.history.remove(imageData.id, function() {
-                      console.log('removed from history');
-
-                      //show message & remove image? .. 
-                      // need to work more on this..
-                      // re-enable upload button?..
-
-                      var deletedModal = {
-                        id: "deleteSuccess",
-                        width: 300,
-                        height: 100,
-                        title: "Success!",
-                        message: "The image was successfully deleted from imgur.",
-                        buttons: [
-                          {text:"ok", action:function(){CaptShare.modal.closeModal('deleteSuccess', true);}}
-                        ]
-                      }
-
-                      CaptShare.modal.showMessage(deletedModal);
-                    });
-                  });
-
-                  CaptShare.modal.closeModal('confirmDelete', true);
-                }
-              }
-            ]
-          }
-
-          CaptShare.modal.showMessage(confirmDeleteModal);
-        });
+        addDeleteClickEventListener(btnDelete, imageData.deletehash, imageData.id);
       }
     });
   }
@@ -293,12 +235,131 @@ CaptShare.engine = (function()
       canvas.style.width = width+'px';
     }
   }
+
+  function updateHistoryData() {
+    var historyDiv = document.getElementById("historyMessage");
+    if(historyDiv) {
+      var historyList = document.getElementById("historyList");
+      if(historyList) {
+        historyDiv.removeChild(historyList);
+      }
+
+      CaptShare.history.getAll(function(data) {
+        var list = document.createElement('ul');
+        list.id = 'historyList';
+
+        for(var x=0; x < data.length; x++) {
+          var item = document.createElement('li');
+
+          var link = document.createElement('a');
+          link.href = data[x].link;
+          link.innerHTML = data[x].id;
+          link.target = "_blank";
+
+          var deleteLink = document.createElement('input');
+          deleteLink.type = "button";
+          deleteLink.value = "delete";
+          
+          addDeleteClickEventListener(deleteLink, data[x].deletehash, data[x].id, true);
+
+          item.appendChild(link);
+          item.appendChild(deleteLink);
+
+          list.appendChild(item);
+        }
+
+        historyDiv.appendChild(list);
+      });
+    }
+  }
+
+  function addDeleteClickEventListener(btn, deletehash, id, updateHistory) {
+    updateHistory = updateHistory || false;
+
+    btn.addEventListener('click', function(e) {
+      var confirmDeleteModal = {
+        id: "confirmDelete",
+        width: 300,
+        height: 120,
+        title: "Delete Confirmation",
+        message: "Are you sure you want to delete the image from imgur?",
+        buttons: [
+          {text:"no", action:function(){CaptShare.modal.closeModal('confirmDelete', true);}},
+          {text:"yes", action:function(){
+              //need delete hash & image id
+              CaptShare.imgurAPI.delete(deletehash, function(err) {
+                if(err) {
+                  console.log('error while deleting');
+                  var deleteErrorModal = {
+                    id: "deleteError",
+                    width: 300,
+                    height: 120,
+                    title: "Error!",
+                    message: "There was an error while deleting the screenshot from imgur.",
+                    buttons: [
+                      {text:"ok", action:function(){CaptShare.modal.closeModal('deleteError', true);}}
+                    ]
+                  }
+
+                  CaptShare.modal.showMessage(deleteErrorModal);
+                  return;
+                }
+                console.log('deleted!');
+                CaptShare.history.remove(id, function() {
+                  console.log('removed from history');
+
+                  if(updateHistory) {
+                    updateHistoryData();
+                  } else {
+                    
+                    //todo: need to disable buttons literally.. do not allow clicks!.. (throughout)
+
+                    var btnUpload = document.getElementById('btnUpload');
+                    if(btnUpload) {
+                      btnUpload.innerHTML = 'Upload';
+                    }
+
+                    var btnCopyLink = document.getElementById('btnCopyLink');
+                    if(btnCopyLink) {
+                      btnCopyLink.className = 'disabled';
+                    }
+
+                    var btnDelete = document.getElementById('btnDelete');
+                    if(btnDelete) {
+                      btnDelete.className = 'disabled';
+                  }
+
+                  var deletedModal = {
+                    id: "deleteSuccess",
+                    width: 300,
+                    height: 100,
+                    title: "Success!",
+                    message: "The image was successfully deleted from imgur.",
+                    buttons: [
+                      {text:"ok", action:function(){CaptShare.modal.closeModal('deleteSuccess', true);}}
+                    ]
+                  }
+
+                  CaptShare.modal.showMessage(deletedModal);
+                });
+              });
+
+              CaptShare.modal.closeModal('confirmDelete', true);
+            }
+          }
+        ]
+      }
+
+      CaptShare.modal.showMessage(confirmDeleteModal);
+    });
+  }
   
 return{
   capture: capture,
   copyLink: copyLink,
   resizeCanvas: resizeCanvas,
-  upload: upload
+  upload: upload,
+  updateHistoryData: updateHistoryData
 }
   
 })();

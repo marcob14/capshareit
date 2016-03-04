@@ -7,7 +7,9 @@ document.getElementById('btnScreenShot').addEventListener('click', function(e) {
 });
 
 document.getElementById('btnCopyLink').addEventListener('click', function(e) {
-  CaptShare.engine.copyLink();
+  if(this.className != 'disabled') {
+    CaptShare.engine.copyLink();
+  }
 });
 
 document.getElementById('btnUpload').addEventListener('click', function(e) {
@@ -15,20 +17,6 @@ document.getElementById('btnUpload').addEventListener('click', function(e) {
 });
 
 document.getElementById('btnHelp').addEventListener('click', function(e) {
-  var modal = {
-    id: "hello",
-    width: 300,
-    height: 100,
-    title: "Hello",
-    message: "This is a test wuhu..",
-    buttons: [
-      {text:"cancel", action:function(){CaptShare.modal.closeModal('hello', true);}},
-      {text:"ok", action:function(){console.log('ok!');}}
-      ]
-  }
-
-  CaptShare.modal.showMessage(modal);
-
   CaptShare.modal.showModal('help');
 });
 
@@ -40,8 +28,17 @@ document.getElementById('btnCloseHelp').addEventListener('click', function(e) {
   CaptShare.modal.closeModal('help');
 });
 
+document.getElementById('btnCloseHistory').addEventListener('click', function(e) {
+  CaptShare.modal.closeModal('history');
+});
+
 document.getElementById('btnSettings').addEventListener('click', function(e) {
   CaptShare.modal.showModal('settings');
+});
+
+document.getElementById('btnHistory').addEventListener('click', function(e) {
+  CaptShare.engine.updateHistoryData();
+  CaptShare.modal.showModal('history');
 });
 
 chrome.app.window.current().onBoundsChanged.addListener(function() {
