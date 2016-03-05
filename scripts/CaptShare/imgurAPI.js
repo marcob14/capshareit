@@ -15,12 +15,9 @@ CaptShare.imgurAPI = (function()
   function parseResp(resp, cb) {
     cb = cb || function(){};
 
-    console.log(resp);
     var status = resp.status;
-console.log(status);
     switch(status) {
       case 200:
-      console.log('success');
         cb(null, JSON.parse(resp.response));
         break;
       case 400:
@@ -51,7 +48,6 @@ console.log(status);
         cb(resp.response.data.error);
         break;
       default:
-        console.log('err: ', resp);
         cb('An unexpected error occured.');
     }
   }
@@ -78,16 +74,7 @@ console.log(status);
           cb(err);
         }
 
-        //tests
-        console.log('adding to history: ', resp.data);
-        CaptShare.history.add(resp.data, function() {
-          console.log('check add lasterror: ', chrome.runtime.lastError);
-          console.log('added to history');
-          CaptShare.history.getAll(function(data) {
-            console.log('got all history', data);
-          });
-        });
-        //tests
+        CaptShare.history.add(resp.data, function() {});
 
         var url = 'https://imgur.com/gallery/' + resp.data.id;
         console.log(url);
@@ -153,14 +140,11 @@ console.log(status);
   }
 
   function deleteImage(deletehash, cb) {
-    console.log('deleteImage');
     var xhr = new XMLHttpRequest();
     xhr.open('DELETE', postImageURL+"/"+deletehash);
     xhr.setRequestHeader('Authorization', clientID);
     xhr.onload = function(e) {
       var resp = JSON.parse(this.response);
-
-      console.log('delete: ', resp);
 
       if (this.status == 200) {
         //...
@@ -170,7 +154,6 @@ console.log(status);
 
     xhr.onerror = function(e) {
       if(this.status == 0) {
-        console.log('error');
         cb(this);
       }
     }

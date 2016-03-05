@@ -43,7 +43,6 @@ CaptShare.modal = (function()
 
       btn.className = "modalButton";
       btn.innerHTML = modal.buttons[x].text;
-      console.log(modal.buttons[x].action);
       btn.addEventListener('click', modal.buttons[x].action);
 
       mdlBtnCont.appendChild(btn);
@@ -55,8 +54,6 @@ CaptShare.modal = (function()
   }
 
   function showModal(id) {
-    console.log('showModal');
-
     var zindex = 1000;
 
     if(modalWindows.length > 0) {

@@ -9,8 +9,6 @@ CaptShare.settings = (function()
   var init = false;
 
   chrome.storage.sync.get('settings', function(data) {
-    console.log('settings', data);
-
     data = data || {};
     settings = data.settings || {};
     init = true;

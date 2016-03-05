@@ -9,15 +9,12 @@ CaptShare.history = (function()
   var init = false;
 
   chrome.storage.sync.get('history', function(data) {
-    console.log('history', data);
-
     data = data || {};
     history = data.history || [];
     init = true;
   })
 
   function saveToStorage(cb) {
-    console.log('saveToStorage', history);
     cb = cb || function(){};
 
     chrome.storage.sync.set({'history': history}, cb);
@@ -25,7 +22,6 @@ CaptShare.history = (function()
 
   function addHistoryEntry(data, cb) {
     cb = cb || function(){};
-console.log(history);
     history.push(data);
     saveToStorage(cb);
   }
@@ -112,7 +108,3 @@ return {
 }
   
 })();
-
-//get date & time of upload
-//var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-//d.setUTCSeconds(temp1.history['ijpkcMb'].datetime);

@@ -123,7 +123,6 @@ button.active {
   color: #666;
   border-top: 1px solid #333;
   padding-top: 13px;
-  display: none;
 }
 
 .options input {
@@ -232,14 +231,34 @@ button.active {
   color: #444;
   font-size: 11pt;
   font-weight: 300;
+  border-bottom: 1px #f7f7f7 solid;
 }
 
 .modalMessage {
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px;
+  padding: 10px 20px;
   font-size: 9pt;
   font-weight: 200;
+}
+
+#historyMessage {
+  overflow: auto;
+  height: 192px;
+}
+
+#historyMessage ul {
+  list-style: none;
+}
+
+#historyMessage ul li{
+  margin: 15px 0;
+  height: 10px;
+}
+
+#historyMessage ul li a, #historyMessage ul li p, #historyMessage ul li input {
+  width: 100px;
+  display: block;
+  float: left;
+  margin: 0;
 }
 
 @keyframes fadeIn {

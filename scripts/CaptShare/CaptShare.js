@@ -17,8 +17,6 @@ CaptShare.engine = (function()
       return;
     }
 
-    //console.log("Desktop sharing started.. desktop_id:" + desktop_id);
-
     navigator.webkitGetUserMedia({
       audio: false,
       video: {
@@ -34,7 +32,6 @@ CaptShare.engine = (function()
     function gotStream(stream) {
       local_stream = stream;
       local_stream_track = stream.getTracks()[0];
-      //console.log("Received local stream");
 
       var video = document.createElement('video');
       video.addEventListener('loadedmetadata',function() {
@@ -45,17 +42,13 @@ CaptShare.engine = (function()
         local_stream = null;
         local_stream_track = null;
 
-        //console.log('Desktop sharing stopped...');
       },false);
 
       video.src = URL.createObjectURL(stream);
-      //video.style.top = "-1000px";
       video.play();
-      //document.body.appendChild(video);
 
-      stream.onended = function() {
-        //console.log('STREAM ENDED!!!!');
-      };      
+      // stream.onended = function() {
+      // };      
     }
 
     function getUserMediaError(e) {
@@ -98,11 +91,6 @@ CaptShare.engine = (function()
         btnDownload.className = '';
       }
 
-      var optionsMenu = document.getElementById('options');
-      if(optionsMenu) {
-        optionsMenu.style.display = 'block';
-      }
-
       var btnScreenShot = document.getElementById('btnScreenShot');
       if(btnScreenShot) {
         btnScreenShot.style.display = 'none';
@@ -141,7 +129,6 @@ CaptShare.engine = (function()
 
     var canvas = document.getElementById("cnvImage");
     if(!canvas) {
-      console.log('canvas not found!');
       return;
     }
 
@@ -152,7 +139,7 @@ CaptShare.engine = (function()
         var modal = {
           id: "uploadError",
           width: 300,
-          height: 120,
+          height: 130,
           title: "Error!",
           message: "There was an error while uploading the screenshot to imgur.",
           buttons: [
@@ -167,7 +154,6 @@ CaptShare.engine = (function()
         return;
       }
 
-      console.log('uploaded');
       var btnCopyLink = document.getElementById('btnCopyLink');
       if(btnCopyLink) {
         btnCopyLink.className = 'enabled';
@@ -190,8 +176,6 @@ CaptShare.engine = (function()
       if(btnDelete) {
         btnDelete.className = '';
 
-        console.log(imageData);
-
         addDeleteClickEventListener(btnDelete, imageData.deletehash, imageData.id);
       }
     });
@@ -209,15 +193,12 @@ CaptShare.engine = (function()
         btnCopyLink.innerHTML = 'copied';
 
         window.setTimeout(function() {
-          console.log(btnCopyLink);
           var btnCopyLink = document.getElementById('btnCopyLink');
           if(btnCopyLink) {
             btnCopyLink.innerHTML = 'Copy Link';
           }
         },1000);
       }
-
-      console.log('link copied: ', txtImgurLink.value);
     }
   }
 
@@ -225,7 +206,6 @@ CaptShare.engine = (function()
     var canvas = document.getElementById("cnvImage");
     if(canvas) {
       var height = window.innerHeight - 60;
-      console.log("h:",window.innerHeight,"; w:",window.innerWidth);
       var width = (height * canvas.width / canvas.height);
       if(width > (window.innerWidth - 20)) {
         width = window.innerWidth - 20;
@@ -257,6 +237,11 @@ CaptShare.engine = (function()
           link.innerHTML = data[x].id;
           link.target = "_blank";
 
+          var date = document.createElement('p');
+          var d = new Date(0); //setting the date to epoch
+          d.setUTCSeconds(data[x].datetime);
+          date.innerHTML = d.toLocaleDateString();
+
           var deleteLink = document.createElement('input');
           deleteLink.type = "button";
           deleteLink.value = "delete";
@@ -264,6 +249,7 @@ CaptShare.engine = (function()
           addDeleteClickEventListener(deleteLink, data[x].deletehash, data[x].id, true);
 
           item.appendChild(link);
+          item.appendChild(date);
           item.appendChild(deleteLink);
 
           list.appendChild(item);
@@ -281,7 +267,7 @@ CaptShare.engine = (function()
       var confirmDeleteModal = {
         id: "confirmDelete",
         width: 300,
-        height: 120,
+        height: 130,
         title: "Delete Confirmation",
         message: "Are you sure you want to delete the image from imgur?",
         buttons: [
@@ -290,11 +276,10 @@ CaptShare.engine = (function()
               //need delete hash & image id
               CaptShare.imgurAPI.delete(deletehash, function(err) {
                 if(err) {
-                  console.log('error while deleting');
                   var deleteErrorModal = {
                     id: "deleteError",
                     width: 300,
-                    height: 120,
+                    height: 130,
                     title: "Error!",
                     message: "There was an error while deleting the screenshot from imgur.",
                     buttons: [
@@ -305,10 +290,8 @@ CaptShare.engine = (function()
                   CaptShare.modal.showMessage(deleteErrorModal);
                   return;
                 }
-                console.log('deleted!');
-                CaptShare.history.remove(id, function() {
-                  console.log('removed from history');
 
+                CaptShare.history.remove(id, function() {
                   if(updateHistory) {
                     updateHistoryData();
                   } else {
