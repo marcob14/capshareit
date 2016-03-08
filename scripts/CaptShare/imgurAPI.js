@@ -67,8 +67,6 @@ CaptShare.imgurAPI = (function()
     xhr.onload = function(e) {
       var resp = JSON.parse(this.response);
 
-      console.log(resp);
-
       parseResp(this, function(err, resp) {
         if(err) {
           cb(err);
@@ -77,11 +75,7 @@ CaptShare.imgurAPI = (function()
         CaptShare.history.add(resp.data, function() {});
 
         var url = 'https://imgur.com/gallery/' + resp.data.id;
-        console.log(url);
-        //window.open(url);
 
-        console.log(resp.data.link);
-        //window.open(resp.data.link);
         var txtImgurLink = document.getElementById('txtImgurLink');
         if(txtImgurLink) { 
           txtImgurLink.value = resp.data.link;
@@ -95,16 +89,15 @@ CaptShare.imgurAPI = (function()
       });
     };
 
-    xhr.onreadystatechange = function(e) {
-      console.log('ready state change!', e);
-      if(this.status == 0) {
-        console.log('error');
-      }
-    }
+    // xhr.onreadystatechange = function(e) {
+    //   console.log('ready state change!', e);
+    //   if(this.status == 0) {
+    //     console.log('error');
+    //   }
+    // }
 
     xhr.onerror = function(e) {
       if(this.status == 0) {
-        console.log('error');
         cb(this);
       }
     }
@@ -112,32 +105,32 @@ CaptShare.imgurAPI = (function()
     xhr.send(formData);
   }
 
-  //experimenting...
-  function getImageInfo(id, cb) {
-    console.log('getImageInfo');
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', postImageURL+"/xiy3EnPch");
-    xhr.setRequestHeader('Authorization', clientID);
-    xhr.onload = function(e) {
-      var resp = JSON.parse(this.response);
+  // //experimenting...
+  // function getImageInfo(id, cb) {
+  //   console.log('getImageInfo');
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open('GET', postImageURL+"/xiy3EnPch");
+  //   xhr.setRequestHeader('Authorization', clientID);
+  //   xhr.onload = function(e) {
+  //     var resp = JSON.parse(this.response);
 
-      console.log(resp);
+  //     console.log(resp);
 
-      if (this.status == 200) {
-        //...
-      }
-    };
+  //     if (this.status == 200) {
+  //       //...
+  //     }
+  //   };
 
-    xhr.onerror = function(e) {
-      if(this.status == 0) {
-        console.log('error');
-        cb(this);
-      }
-    }
+  //   xhr.onerror = function(e) {
+  //     if(this.status == 0) {
+  //       console.log('error');
+  //       cb(this);
+  //     }
+  //   }
 
-    xhr.send();
+  //   xhr.send();
 
-  }
+  // }
 
   function deleteImage(deletehash, cb) {
     var xhr = new XMLHttpRequest();
@@ -167,9 +160,9 @@ return{
   upload: function(img, cb) {
     uploadImage(img, cb);
   },
-  getImageInfo: function(id, cb) {
-    getImageInfo(id, cb);
-  },
+  // getImageInfo: function(id, cb) {
+  //   getImageInfo(id, cb);
+  // },
   delete: function(deletehash, cb) {
     deleteImage(deletehash, cb);
   }

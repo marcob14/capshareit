@@ -110,7 +110,6 @@ CaptShare.engine = (function()
       var btnDelete = document.getElementById('btnDelete');
       if(btnDelete) {
         btnDelete.className = 'disabled';
-        btnDelete.removeEventListener('click');
       }
 
       //focusing window
@@ -263,7 +262,7 @@ CaptShare.engine = (function()
   function addDeleteClickEventListener(btn, deletehash, id, updateHistory) {
     updateHistory = updateHistory || false;
 
-    btn.addEventListener('click', function(e) {
+    btn.onclick = function(e) {
       var confirmDeleteModal = {
         id: "confirmDelete",
         width: 300,
@@ -309,16 +308,13 @@ CaptShare.engine = (function()
                     var btnDelete = document.getElementById('btnDelete');
                     if(btnDelete) {
                       btnDelete.className = 'disabled';
-
-                      //todo: fix this:
-                      btnDelete.removeEventListener('click');
                     }
                   }
 
                   var deletedModal = {
                     id: "deleteSuccess",
                     width: 300,
-                    height: 100,
+                    height: 130,
                     title: "Success!",
                     message: "The image was successfully deleted from imgur.",
                     buttons: [
@@ -335,9 +331,8 @@ CaptShare.engine = (function()
           }
         ]
       }
-
       CaptShare.modal.showMessage(confirmDeleteModal);
-    });
+    };
   }
   
 return{
