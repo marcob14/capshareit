@@ -229,29 +229,31 @@ CaptShare.engine = (function()
         list.id = 'historyList';
 
         for(var x=0; x < data.length; x++) {
-          var item = document.createElement('li');
+          if(data[x] != null) {
+            var item = document.createElement('li');
 
-          var link = document.createElement('a');
-          link.href = data[x].link;
-          link.innerHTML = data[x].id;
-          link.target = "_blank";
+            var link = document.createElement('a');
+            link.href = data[x].link;
+            link.innerHTML = data[x].id;
+            link.target = "_blank";
 
-          var date = document.createElement('p');
-          var d = new Date(0); //setting the date to epoch
-          d.setUTCSeconds(data[x].datetime);
-          date.innerHTML = d.toLocaleDateString();
+            var date = document.createElement('p');
+            var d = new Date(0); //setting the date to epoch
+            d.setUTCSeconds(data[x].datetime);
+            date.innerHTML = d.toLocaleDateString();
 
-          var deleteLink = document.createElement('input');
-          deleteLink.type = "button";
-          deleteLink.value = "delete";
-          
-          addDeleteClickEventListener(deleteLink, data[x].deletehash, data[x].id, true);
+            var deleteLink = document.createElement('input');
+            deleteLink.type = "button";
+            deleteLink.value = "delete";
+            
+            addDeleteClickEventListener(deleteLink, data[x].deletehash, data[x].id, true);
 
-          item.appendChild(link);
-          item.appendChild(date);
-          item.appendChild(deleteLink);
+            item.appendChild(link);
+            item.appendChild(date);
+            item.appendChild(deleteLink);
 
-          list.appendChild(item);
+            list.appendChild(item);
+          }
         }
 
         historyDiv.appendChild(list);

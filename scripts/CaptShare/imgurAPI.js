@@ -72,7 +72,29 @@ CaptShare.imgurAPI = (function()
           cb(err);
         }
 
-        CaptShare.history.add(resp.data, function() {});
+        var imgData = {
+          id: resp.data.id,
+          link: resp.data.link,
+          deletehash: resp.data.deletehash,
+          datetime: resp.data.datetime
+        };
+
+        CaptShare.history.add(imgData, function(err) {
+          if(err) {
+            var modal = {
+              id: "addToHistoryError",
+              width: 300,
+              height: 160,
+              title: "Error!",
+              message: "There was an error while adding the newly uploaded screenshot to the history data. <br><br><span style='color:#666; font-size:0.9em;''>[ " + err + " ]</span>",
+              buttons: [
+                {text:"ok", action:function(){CaptShare.modal.closeModal('addToHistoryError', true);}}
+              ]
+            }
+
+            CaptShare.modal.showMessage(modal);
+          }
+        });
 
         var url = 'https://imgur.com/gallery/' + resp.data.id;
 

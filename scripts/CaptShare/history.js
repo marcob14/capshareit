@@ -7,6 +7,7 @@ CaptShare.history = (function()
 {
   var history = [];
   var init = false;
+  var maxHistory = 20;
 
   chrome.storage.sync.get('history', function(data) {
     data = data || {};
@@ -17,12 +18,26 @@ CaptShare.history = (function()
   function saveToStorage(cb) {
     cb = cb || function(){};
 
-    chrome.storage.sync.set({'history': history}, cb);
+    chrome.storage.sync.set({'history': history}, function() {
+      if(!chrome.runtime.lastError) {
+        cb();
+      } else {
+        cb(chrome.runtime.lastError.message);
+      }
+    });
   }
 
   function addHistoryEntry(data, cb) {
     cb = cb || function(){};
+
+    if(history.length >= maxHistory) {
+      var numToRemove = ((history.length - maxHistory) + 1);
+
+      history.splice(0, numToRemove);
+    }
+
     history.push(data);
+
     saveToStorage(cb);
   }
 
