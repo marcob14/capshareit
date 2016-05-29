@@ -41,10 +41,6 @@ CaptShare.imgurAPI = (function()
       case 500:
         //Unexpected internal error. What it says. We'll strive NOT to return these but your app 
         //should be prepared to see it. It basically means that something is broken with the Imgur service.
-        console.log('Error: ', resp.response.data.error);
-        console.log('Method: ', resp.response.data.method);
-        console.log('Request: ', resp.response.data.request);
-
         cb(resp.response.data.error);
         break;
       default:
@@ -111,13 +107,6 @@ CaptShare.imgurAPI = (function()
       });
     };
 
-    // xhr.onreadystatechange = function(e) {
-    //   console.log('ready state change!', e);
-    //   if(this.status == 0) {
-    //     console.log('error');
-    //   }
-    // }
-
     xhr.onerror = function(e) {
       if(this.status == 0) {
         cb(this);
@@ -126,33 +115,6 @@ CaptShare.imgurAPI = (function()
 
     xhr.send(formData);
   }
-
-  // //experimenting...
-  // function getImageInfo(id, cb) {
-  //   console.log('getImageInfo');
-  //   var xhr = new XMLHttpRequest();
-  //   xhr.open('GET', postImageURL+"/xiy3EnPch");
-  //   xhr.setRequestHeader('Authorization', clientID);
-  //   xhr.onload = function(e) {
-  //     var resp = JSON.parse(this.response);
-
-  //     console.log(resp);
-
-  //     if (this.status == 200) {
-  //       //...
-  //     }
-  //   };
-
-  //   xhr.onerror = function(e) {
-  //     if(this.status == 0) {
-  //       console.log('error');
-  //       cb(this);
-  //     }
-  //   }
-
-  //   xhr.send();
-
-  // }
 
   function deleteImage(deletehash, cb) {
     var xhr = new XMLHttpRequest();
@@ -182,9 +144,6 @@ return{
   upload: function(img, cb) {
     uploadImage(img, cb);
   },
-  // getImageInfo: function(id, cb) {
-  //   getImageInfo(id, cb);
-  // },
   delete: function(deletehash, cb) {
     deleteImage(deletehash, cb);
   }

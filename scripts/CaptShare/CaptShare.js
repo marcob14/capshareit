@@ -45,14 +45,10 @@ CaptShare.engine = (function()
       },false);
 
       video.src = URL.createObjectURL(stream);
-      video.play();
-
-      // stream.onended = function() {
-      // };      
+      video.play();    
     }
 
     function getUserMediaError(e) {
-      console.log('getUserMediaError: ' + JSON.stringify(e, null, '---'));
     }
 
     function takeScreenshot(vid) {
