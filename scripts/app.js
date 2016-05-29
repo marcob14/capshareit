@@ -34,10 +34,6 @@ document.getElementById('btnCloseHistory').addEventListener('click', function(e)
   CaptShare.modal.closeModal('history');
 });
 
-document.getElementById('btnSettings').addEventListener('click', function(e) {
-  CaptShare.modal.showModal('settings');
-});
-
 document.getElementById('btnHistory').addEventListener('click', function(e) {
   CaptShare.engine.updateHistoryData();
   CaptShare.modal.showModal('history');
@@ -46,3 +42,7 @@ document.getElementById('btnHistory').addEventListener('click', function(e) {
 chrome.app.window.current().onBoundsChanged.addListener(function() {
   CaptShare.engine.resizeCanvas();
 });
+
+
+var manifest = chrome.runtime.getManifest();
+document.getElementById('version').innerHTML = manifest.version;
