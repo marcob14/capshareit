@@ -9,7 +9,7 @@ if(typeof(CaptShare) != 'object') // object
 
 CaptShare.imgurAPI = (function()
 {
-  var clientID = 'Client-ID 91beea2a100108a';
+  var clientID = 'Client-ID f95530734803997';
   var postImageURL = 'https://api.imgur.com/3/image';
 
   function parseResp(resp, cb) {
