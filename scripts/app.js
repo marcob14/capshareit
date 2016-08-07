@@ -18,6 +18,12 @@ document.getElementById('btnUpload').addEventListener('click', function(e) {
   }
 });
 
+document.getElementById('btnCrop').addEventListener('click', function(e) {
+  if(this.className != 'disabled') {
+    CaptShare.crop.init();
+  }
+});
+
 document.getElementById('btnHelp').addEventListener('click', function(e) {
   CaptShare.modal.showModal('help');
 });

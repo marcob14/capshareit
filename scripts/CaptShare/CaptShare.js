@@ -92,6 +92,11 @@ CaptShare.engine = (function()
         btnScreenShot.style.display = 'none';
       }
 
+      var btnCrop = document.getElementById('btnCrop');
+      if(btnCrop) {
+        btnCrop.className = '';
+      }
+
       var btnUpload = document.getElementById('btnUpload');
       if(btnUpload) {
         btnUpload.className = '';
