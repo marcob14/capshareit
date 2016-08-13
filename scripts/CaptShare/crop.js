@@ -99,29 +99,32 @@ CaptShare.crop = (function()
       console.log('mousemove x:', e.pageX - offsetX, ' y:', e.pageY - offsetY);
       var cropArea = document.getElementById('cropArea');
 
-console.log('startx: ', startx);
+// check with cropContainer border.. todo also in drag..
 
-      if((e.pageX - offsetX) < startx) {
+      var cursorX = e.pageX - offsetX;
+      var cursorY = e.pageY - offsetY;
+
+      if(cursorX < startx) {
         console.log('smaller');
-        cropArea.style.left = e.pageX - offsetX;
-        cropArea.style.width = startx - (e.pageX - offsetX);
+        cropArea.style.left = cursorX;
+        cropArea.style.width = startx - cursorX;
       } else {
         console.log('larger');
         cropArea.style.left = startx;
-        cropArea.style.width = (e.pageX - offsetX) - startx;
+        cropArea.style.width = cursorX - startx;
       }
 
       //cropArea.style.height = e.pageY - starty;
 
-      if((e.pageY - offsetY) < starty) {
+      if(cursorY < starty) {
         console.log('smaller');
-        cropArea.style.top = e.pageY - offsetY;
-        cropArea.style.height = starty - (e.pageY - offsetY);
+        cropArea.style.top = cursorY;
+        cropArea.style.height = starty - cursorY;
 
       } else {
         console.log('larger');
         cropArea.style.top = starty;
-        cropArea.style.height = (e.pageY - offsetY) - starty;
+        cropArea.style.height = cursorY - starty;
       }
     }
 
@@ -170,16 +173,34 @@ console.log('startx: ', startx);
     var Drag = function(e) {
       console.log('drag');
 
-      cropArea.style.top = e.pageY - dragArea.y;
-      cropArea.style.left = e.pageX - dragArea.x;
+      nextY = e.pageY - dragArea.y;
+      nextX = e.pageX - dragArea.x;
+
+      if(nextY < 0) {
+        //taking crae of the cropArea border
+        nextY = -1;
+      } 
+      else if(nextY + cropArea.clientHeight > cropContainer.clientHeight) {
+        //taking crae of the cropArea border
+        nextY = cropContainer.clientHeight - cropArea.clientHeight - 1;
+      }
+
+      if(nextX < 0) {
+        //taking crae of the cropArea border
+        nextX = -1;
+      } 
+      else if(nextX + cropArea.clientWidth > cropContainer.clientWidth) {
+        //taking crae of the cropArea border
+        nextX = cropContainer.clientWidth - cropArea.clientWidth - 1;
+      }
+
+      cropArea.style.top = nextY;
+      cropArea.style.left = nextX;
     }
 
     var StopDrag = function(e) {
       if(dragArea) {
         console.log('stop drag');
-
-        cropArea.style.top = e.pageY - dragArea.y;
-        cropArea.style.left = e.pageX - dragArea.x;
 
         dragArea = null;
 
