@@ -154,6 +154,11 @@ CaptShare.crop = (function()
           }
         });
 
+        //add crop event listener - double click
+        cropArea.addEventListener("dblclick",function(e){
+          crop();
+        });
+
         selectingArea = false;
       }
     }
@@ -208,6 +213,93 @@ CaptShare.crop = (function()
       }
     }
 
+    var crop = function() {
+      console.log('crop!');
+
+      console.log(cropArea.offsetLeft);
+      console.log(cropArea.offsetTop);
+      console.log(cropArea.clientWidth);
+      console.log(cropArea.clientHeight);
+
+      // //resizing canvas while taking a screenshot
+      // var canvas = document.getElementById("cnvImage");
+      // if(canvas) {
+      //   var height = window.innerHeight - 60;
+      //   var width = (height * canvas.width / canvas.height);
+      //   if(width > (window.innerWidth - 20)) {
+      //     width = window.innerWidth - 20;
+      //     height = (width * canvas.height / canvas.width);
+      //   }
+
+      //   canvas.style.height = height+'px';
+      //   canvas.style.width = width+'px';
+      // }
+
+
+      var sourceX, sourceY, sourceWidth, sourceHeight,
+        canvasWidth, canvasHeight, ratioWidth, ratioHeight;
+
+      var sourceCanvas = document.getElementById("cnvImage");
+
+      ratioWidth = sourceCanvas.width / sourceCanvas.offsetWidth;
+      ratioHeight = sourceCanvas.height / sourceCanvas.offsetHeight;
+
+      sourceX = cropArea.offsetLeft * ratioWidth;
+      sourceY = cropArea.offsetTop * ratioHeight;
+
+      sourceWidth = cropArea.clientWidth * ratioWidth;
+      sourceHeight = cropArea.clientHeight * ratioHeight;
+
+      canvasWidth = cropArea.clientWidth;
+      canvasHeight = cropArea.clientHeight;
+
+      console.log('sourceWidth: ', sourceWidth);
+      console.log('sourceHeight: ', sourceHeight);
+      console.log('canvasWidth: ', canvasWidth);
+      console.log('canvasHeight: ', canvasHeight);
+      console.log('ratioWidth: ', ratioWidth);
+      console.log('ratioHeight: ', ratioHeight);
+      console.log('sourceX: ', sourceX);
+      console.log('sourceY: ', sourceY);
+
+
+      var canvas = document.createElement('canvas');
+
+      canvas.width = sourceWidth;
+      canvas.height = sourceHeight;
+      var ctx = canvas.getContext("2d");
+
+      ctx.drawImage(cnvImage, 
+        sourceX, 
+        sourceY,
+        sourceWidth, 
+        sourceHeight,
+        0,0,
+        sourceWidth, 
+        sourceHeight);
+
+      canvas.style.width = canvasWidth;
+      canvas.style.height = canvasHeight;
+
+      // ctx.drawImage(cnvImage, 70, 20,
+      //   50,50,0,0,100,100);
+
+      canvas.id = 'cnvCroppedImage';
+
+      cropContainer.appendChild(canvas);
+
+      // drawImage();
+      // img  Specifies the image, canvas, or video element to use   
+      // sx  Optional. The x coordinate where to start clipping  Play it »
+      // sy  Optional. The y coordinate where to start clipping  Play it »
+      // swidth  Optional. The width of the clipped image  Play it »
+      // sheight Optional. The height of the clipped image Play it »
+      // x The x coordinate where to place the image on the canvas Play it »
+      // y The y coordinate where to place the image on the canvas Play it »
+      // width Optional. The width of the image to use (stretch or reduce the image) Play it »
+      // height  Optional. The height of the image to use (stretch or reduce the image)  Play it »
+
+    }
 
     //set cursor style, add event listeners
 
