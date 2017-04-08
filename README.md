@@ -1,14 +1,27 @@
-# CaptShare
+# CapShareIt
 
-Capture and share your screen. 
-This app requires the permission 'desktopCapture' and 'clipboardWrite'.
+Capture your screen/windows and share them easily using the provided Imgur links
+An easy way to take a screenshot on Chrome OS, Mac, Windows or Linux and share it using Imgur links.
 
-## APIs
+With CapShareIt you can:
 
-* [Runtime](http://developer.chrome.com/apps/app.runtime.html)
-* [Window](http://developer.chrome.com/apps/app.window.html)
-* [desktopCapture](https://developer.chrome.com/apps/desktopCapture)
+ * Take a screenshot of any window or screen
+
+ * Save screenshots to your computer
+
+ * Upload the screenshot to Imgur (anonymous and hidden)
+
+ * Share the screenshot using the provided Imgur link
+
+ * Delete the image from Imgur
+
+ * Browse the last few screenshots that were taken and uploaded to Imgur from the History panel
 
 
-## Screenshot
-![screenshot](https://)
+## Permissions
+
+This app requires the following permissions:
+ * desktopCapture
+ * clipboardWrite
+ * notifications
+ * storage
