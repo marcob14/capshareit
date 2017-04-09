@@ -1,4 +1,4 @@
-# CapShareIt
+# [![CapShareIt](http://i.imgur.com/TPTpXXo.png)](#)
 
 Capture your screen/windows and share them easily using the provided Imgur links
 An easy way to take a screenshot on Chrome OS, Mac, Windows or Linux and share it using Imgur links.
@@ -25,3 +25,9 @@ This app requires the following permissions:
  * clipboardWrite
  * notifications
  * storage
+
+
+## Screenshots
+![CapShareIt - Google Chrome App](http://i.imgur.com/D86UqiT.png)
+![CapShareIt - Main Screen](http://i.imgur.com/HbYcLuT.png)
+![CapShareIt - History Feature](http://i.imgur.com/Ig3N4J6.png)
